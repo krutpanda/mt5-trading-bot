@@ -10,10 +10,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 symbol = "EURUSD"
-lot = 0.02
-magic = 15
+lot = 0.01
+magic = 06052003
 timeframe = timeframes_mapping["1-minute"]
-pct_tp, pct_sl = 0.005, 0.005 # DONT PUT THE MINUS SYMBOL ON THE SL
+pct_tp, pct_sl = 0.005, 0.005 # DO NOT PUT __*****THE MINUS SYMBOL*****__ ON THE SL
 mt5.initialize()
 
 current_account_info = mt5.account_info()
@@ -31,18 +31,18 @@ while True:
     if datetime.now().strftime("%H:%M:%S") in timeframe_condition:
         print(datetime.now().strftime("%H:%M:%S"))
 
-        # ! YOU NEED TO HAVE THE SYMBOL IN THE MARKET WATCH TO OPEN OR CLOSE A POSITION
+        # ! in market watch you have to selecte pair if you have to open or close the oder
         selected = mt5.symbol_select(symbol)
         if not selected:
-            print(f"\nERROR - Failed to select '{symbol}' in MetaTrader 5 with error :", mt5.last_error())
+            print(f"\nERROR - mitra error  '{symbol}' in MetaTrader 5 with error :", mt5.last_error())
 
-        # Create the signals
+        # Create signals if you have to gain profit$$$$
         buy, sell = random(symbol)
 
-        # Import current open positions
+        # Import @@live@@ open positions
         res = resume()
 
-        # Here we have a tp-sl exit signal, and we can't open two position on the same asset for the same strategy
+        # Here we have a tp-sl signal, and we can't open two position on the same asset for the same strategy
         if ("symbol" in res.columns) and ("volume" in res.columns):
             if not ((res["symbol"] == symbol) & (res["volume"] == lot)).any():
                 # Run the algorithm
@@ -50,7 +50,5 @@ while True:
 
         else:
             run(symbol, buy, sell, lot, pct_tp=pct_tp, pct_sl=pct_sl, magic=magic)
-
-        # Generally you run several asset in the same time, so we put sleep to avoid to do again the
-        # same computations several times and therefore increase the slippage for other strategies
+    
         time.sleep(1)
