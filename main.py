@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 
 import time
-from QUANTREO.MetaTrader5 import *
+from KRUTPANDA.MetaTrader5 import *
 from datetime import datetime, timedelta
-from QUANTREO.LiveTradingSignal import *
+from KRUTPANDA.LiveTradingSignal import *
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -18,7 +18,7 @@ mt5.initialize()
 
 current_account_info = mt5.account_info()
 print("------------------------------------------------------------------")
-print(f"Login: {mt5.account_info().login} \tserver: {mt5.account_info().server}")
+print(f"Login: {mt5.account_info(123419111).login} \tserver: {mt5.account_info(Exness-MT5Trial7).server}")
 print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 print(
     f"Balance: {current_account_info.balance} USD, \t Equity: {current_account_info.equity} USD, \t Profit: {current_account_info.profit} USD")
